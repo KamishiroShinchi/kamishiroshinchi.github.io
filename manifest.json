@@ -1,0 +1,12 @@
+{"name": "sgsdiy",
+"version": "1",
+"manifest_version":2, 
+"description": "自定义描述信息",
+"icons": { "48": "resources/icon.png" }, //定义图片的大小，可以自己更改
+"page_action": { "default_icon": "resources/icon.png" },//定义图片的名称，可以自己更改
+"permissions": [ "tabs" ],
+"content_scripts": [{
+    "matches": ["file:///E:/BaiduNetdiskDownload/Lyciumaker-master/*"], //对哪些url生效
+    "js": ["index.js"]//定义本地.js文件名称，可以自己更改
+    }]
+}
