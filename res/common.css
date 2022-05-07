@@ -67,7 +67,7 @@
 /* New Fonts */
 @font-face {
 	font-family: 'XingKai';
-	src: url('../fonts/STXINGKA.WOFF');
+	src: url('https://rawcdn.githack.com/KamishiroShinchi/kamishiroshinchi.github.io/9f1ce6bc4c9307cf3089bf8e3a31b7aa19a14a8b/fonts/mobile/STXINGKA.woff');
 }
 @font-face { /* Alias */
 	font-family: 'STXingKai';
@@ -75,7 +75,7 @@
 }
 @font-face {
 	font-family: 'JMMaoCaoXing'; /* 自定义字体名称 */
-	src: url('../fonts/jmmao.WOFF');
+	src: url('https://rawcdn.githack.com/KamishiroShinchi/kamishiroshinchi.github.io/9f1ce6bc4c9307cf3089bf8e3a31b7aa19a14a8b/fonts/mobile/jmmao.woff');
 }
 @font-face {
 	font-family: 'JMMaoCaoXingEx'; /* 自定义字体名称 */
@@ -83,11 +83,11 @@
 }
 @font-face {
 	font-family: 'DFPNewChuan-B5';
-	src: url('../fonts/DFNewChua.WOFF');
+	src: url('https://rawcdn.githack.com/KamishiroShinchi/kamishiroshinchi.github.io/9f1ce6bc4c9307cf3089bf8e3a31b7aa19a14a8b/fonts/mobile/DFNewChua.woff');
 }
 @font-face {
 	font-family: 'ZhunYuan';
-	src: url('../fonts/RuiYunZhunYuan.WOFF');
+	src: url('https://rawcdn.githack.com/KamishiroShinchi/kamishiroshinchi.github.io/9f1ce6bc4c9307cf3089bf8e3a31b7aa19a14a8b/fonts/mobile/RuiYunZhunYuan.woff');
 }
 @font-face {
 	font-family: 'JingDianFanJiaoLi';
@@ -95,23 +95,23 @@
 }
 @font-face {
 	font-family: 'LiBian';
-	src: url('../fonts/FZLiBian.WOFF');
+	src: url('https://rawcdn.githack.com/KamishiroShinchi/kamishiroshinchi.github.io/9f1ce6bc4c9307cf3089bf8e3a31b7aa19a14a8b/fonts/mobile/FZLiBian.woff');
 }
 @font-face {
 	font-family: 'FZKaTong';
-	src: url('../fonts/FZKaTong.WOFF');
+	src: url('https://rawcdn.githack.com/KamishiroShinchi/kamishiroshinchi.github.io/9f1ce6bc4c9307cf3089bf8e3a31b7aa19a14a8b/fonts/mobile/FZKaTong.woff');
 }
 @font-face {
 	font-family: 'FZShaoer';
-	src: url('../fonts/FZShaoer.WOFF');
+	src: url('https://rawcdn.githack.com/KamishiroShinchi/kamishiroshinchi.github.io/9f1ce6bc4c9307cf3089bf8e3a31b7aa19a14a8b/fonts/mobile/FZShaoer.woff');
 }
 @font-face {
 	font-family: 'HKWaWaW5';
-	src: url('../fonts/HKWaWaW5.WOFF');
+	src: url('https://rawcdn.githack.com/KamishiroShinchi/kamishiroshinchi.github.io/9f1ce6bc4c9307cf3089bf8e3a31b7aa19a14a8b/fonts/mobile/HKWaWaW5.woff');
 }
 @font-face {
 	font-family: 'FZQingKeBenYueSong';
-	src: url('../fonts/FZQingKeBenYueSong.TTF');
+	src: url('https://rawcdn.githack.com/KamishiroShinchi/kamishiroshinchi.github.io/9f1ce6bc4c9307cf3089bf8e3a31b7aa19a14a8b/fonts/mobile/FZQingKeBenYueSong.TTF');
 }
 
 
