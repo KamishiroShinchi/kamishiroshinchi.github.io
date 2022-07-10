@@ -188,10 +188,10 @@
 	float: right;
 }
 .card .footer .illustrator::before {
-	content: 'Illustration: ';
+	content: '';
 }
 .card .footer .trademark::before {
-	content: '™&© ';
+	content: '';
 }
 
 .card .partner {
