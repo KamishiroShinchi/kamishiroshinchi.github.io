@@ -20,7 +20,7 @@
 }
 @font-face {
 	font-family: 'LiShu';
-	src: local('隶书'), local('LiSu'), local('LiShu'), url('../fonts/mobile/SIMLI.TTF') format('truetype');
+	src: local('隶书'), local('LiSu'), local('LiShu'), url('https://rawcdn.githack.com/KamishiroShinchi/kamishiroshinchi.github.io/ba4067dcf242f7ea44538286d0ab6e2ad7fc9e16/font/ZhongYiLiShu.ttf') format('truetype');
 }
 @font-face {
 	font-family: 'Microsoft YaHei';
