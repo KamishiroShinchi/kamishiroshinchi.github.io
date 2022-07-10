@@ -71,7 +71,7 @@
 }
 @font-face { /* Alias */
 	font-family: 'STXingKai';
-	src: url('../fonts/STXINGKA.WOFF');
+	src: url('https://rawcdn.githack.com/KamishiroShinchi/kamishiroshinchi.github.io/bfeee35a26f104187aacd079ebe26b335e251e70/fonts/mobile/STXINGKA.woff');
 }
 @font-face {
 	font-family: 'JMMaoCaoXing'; /* 自定义字体名称 */
