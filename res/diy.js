@@ -381,6 +381,7 @@ function createCard(object){
 			var key = EXTRA_SEGMENTS[i];
 			var div = document.createElement('div');
 			var value = object.extra[key]
+		        if (value=='') continue;
 			div.className = key;
 			div.setAttribute('value', value);
 			div.setAttribute('length', value.length);
