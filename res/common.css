@@ -79,7 +79,7 @@
 }
 @font-face {
 	font-family: 'JMMaoCaoXingEx'; /* 自定义字体名称 */
-	src: url('../fonts/jmmex.TTF') format('truetype');
+	src: url('https://rawcdn.githack.com/KamishiroShinchi/kamishiroshinchi.github.io/fc60473d07c9895f59ccfc75c99bb321d2c52d66/fonts/jmmex.ttf') format('truetype');
 }
 @font-face {
 	font-family: 'DFPNewChuan-B5';
