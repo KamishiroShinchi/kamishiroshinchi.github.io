@@ -276,10 +276,10 @@
 	margin-left: 12px;
 }
 .card .footer .illustrator::before {
-	content: 'Illustrated by ';
+	content: '';
 }
 .card .footer .trademark::before {
-	content: '™&© ';
+	content: '';
 }
 
 
