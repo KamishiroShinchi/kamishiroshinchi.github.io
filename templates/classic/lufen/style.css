@@ -33,21 +33,21 @@
 .card[kingdom='草'] .frame::before,
 .card[kingdom='水'] .frame::before,
 .card[kingdom='火'] .frame::before,
-.card[kingdom='冰'] .frame::before,
-.card[kingdom]:not([kingdom='']) .frame::before {
+.card[kingdom='冰'] .frame::before/*k,
+.card[kingdom]:not([kingdom='']) .frame::before */{
   content: '';
   position: absolute;
   display: block;
   left: 18px;
   top: 18px;
-  width: 80px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
 }
-
+/*
 .card[kingdom]:not([kingdom='']) .frame::before {
   background: url('images/kingdom-patch.png') 0 0;
 }
-
+*/
 .card[kingdom='万'] .frame::before {
   background: url('images/awan.png') 0 0;
 }
@@ -294,7 +294,7 @@
 	font-size: 42px;
 	font-family: LiShu;
 	min-height: 48px;
-	left: -76px;
+	left: -126px; /*k 76 */
 	margin-top: -16px;
 	z-index: 2;
 	white-space: nowrap; /*k 禁止自动换行 */
