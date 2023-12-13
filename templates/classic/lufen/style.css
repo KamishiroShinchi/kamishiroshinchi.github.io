@@ -75,7 +75,7 @@
 .card[kingdom='水'] .frame::before {
   background: url('images/ashui.png') 0 0;
 }
-/*safdsa*/
+
 .card[kingdom='火'] .frame::before {
   background: url('images/ahuo.png') 0 0;
 }
@@ -287,16 +287,24 @@
 	position: absolute;
 	list-style: none;
 	background: url('images/wei-skill.png') no-repeat 0px 0px / 156px auto;
-	padding-left: 20px;
+	padding-left: 16px; /*k 20*/
 	padding-top: 3px;
 	width: 160px;
 	height: 74px;
-	font-size: 42px;
+	font-size: 28px; /*k 42*/
 	font-family: LiShu;
 	min-height: 48px;
 	left: -76px;
 	margin-top: -16px;
 	z-index: 2;
+	letter-spacing: -.2em; /*k ; */
+	white-space: nowrap; /* 禁止自动换行 */
+}
+.card .description .pointer[length='2'] {
+	font-size: 42px;
+	line-height: 44px;
+	letter-spacing: 0;
+	padding-left: 20px;
 }
 .card .description .pointer[length='3'] {
 	font-size: 32px;
@@ -304,7 +312,7 @@
 	letter-spacing: -.1em;
 	padding-left: 18px;
 }
-.card .description .pointer[length>='4'] {
+.card .description .pointer[length='4'] {
 	font-size: 28px;
 	line-height: 44px;
 	letter-spacing: -.2em;
