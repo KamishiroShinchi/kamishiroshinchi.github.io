@@ -486,10 +486,10 @@
 .card.wu[kingdom]:not([kingdom='']) .frame::before {
 	background-position: 0 -70px;
 }
-.card.qun[kingdom]:not([kingdom='']) .frame::before {
-	/*k background-position: -80px -70px; */
+/*k .card.qun[kingdom]:not([kingdom='']) .frame::before {
+	background-position: -80px -70px;
 	background-position: -160px -70px;
-}
+} */
 .card.god[kingdom]:not([kingdom='']) .frame::before {
 	background-position: -160px 0;
 }
