@@ -251,7 +251,7 @@
 	padding-bottom: 20px;
 	background: url('images/wei-skill-middle.png') center / 1000px 100% repeat-y;
 	border-radius: 62px;
-	min-height: 124px;
+	min-height: 24px;
 	transform-origin: left bottom;
 	transform: scale(0.5);
 }
