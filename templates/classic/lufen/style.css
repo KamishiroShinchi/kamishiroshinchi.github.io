@@ -75,7 +75,7 @@
 .card[kingdom='水'] .frame::before {
   background: url('images/ashui.png') 0 0;
 }
-
+/*safdsa*/
 .card[kingdom='火'] .frame::before {
   background: url('images/ahuo.png') 0 0;
 }
@@ -304,7 +304,7 @@
 	letter-spacing: -.1em;
 	padding-left: 18px;
 }
-.card .description .pointer[length='4'] {
+.card .description .pointer[length>='4'] {
 	font-size: 28px;
 	line-height: 44px;
 	letter-spacing: -.2em;
@@ -488,7 +488,6 @@
 }
 /*k .card.qun[kingdom]:not([kingdom='']) .frame::before {
 	background-position: -80px -70px;
-	background-position: -160px -70px;
 } */
 .card.god[kingdom]:not([kingdom='']) .frame::before {
 	background-position: -160px 0;
