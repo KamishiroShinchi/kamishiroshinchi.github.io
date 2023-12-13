@@ -287,26 +287,20 @@
 	position: absolute;
 	list-style: none;
 	background: url('images/wei-skill.png') no-repeat 0px 0px / 156px auto;
-	padding-left: 16px; /*k 20*/
+	padding-left: 20px;
 	padding-top: 3px;
 	width: 160px;
 	height: 74px;
-	font-size: 28px; /*k 42*/
+	font-size: 42px;
 	font-family: LiShu;
 	min-height: 48px;
 	left: -76px;
 	margin-top: -16px;
 	z-index: 2;
-	letter-spacing: -.2em; /*k ; */
-	white-space: nowrap; /* 禁止自动换行 */
+	white-space: nowrap; /*k 禁止自动换行 */
 }
-.card .description .pointer[length='2'] {
-	font-size: 42px;
-	line-height: 44px;
-	letter-spacing: 0;
-	padding-left: 20px;
-}
-.card .description .pointer[length='3'] {
+
+/*k .card .description .pointer[length='3'] {
 	font-size: 32px;
 	line-height: 44px;
 	letter-spacing: -.1em;
@@ -317,7 +311,7 @@
 	line-height: 44px;
 	letter-spacing: -.2em;
 	padding-left: 16px;
-}
+} */
 
 .card .footer {
 	left: -43px;
