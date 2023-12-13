@@ -44,6 +44,10 @@
   height: 60px;
 }
 
+.card[kingdom]:not([kingdom='']) .frame::before {
+  background: url('images/kingdom-patch.png') 0 0;
+}
+
 .card[kingdom='万'] .frame::before {
   background: url('images/awan.png') 0 0;
 }
@@ -78,11 +82,6 @@
 
 .card[kingdom='冰'] .frame::before {
   background: url('images/abing.png') 0 0;
-}
-
-/* 默认情况下加载images/kingdom-patch.png */
-.card[kingdom]:not([kingdom='']) .frame::before {
-  background: url('images/kingdom-patch.png') 0 0;
 }
 
 .card .frame .custom-kingdom {
