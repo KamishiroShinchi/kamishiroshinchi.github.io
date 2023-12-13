@@ -4,8 +4,12 @@
 /* 如有需要，可以修改所用字体、字号 */
 
 .card {
+    /*k
 	width: 366px;
 	height: 514px;
+	*/
+	width: 420px;
+	height: 720px;
 	--variants: 魏, wei, 蜀, shu, 吴, wu, 群, qun, 神, god, 
 		魏主公, wei lord, 蜀主公, shu lord, 吴主公, wu lord, 群主公, qun lord;
 }
@@ -97,6 +101,7 @@
 		-.7px -.7px black, .7px -.7px black, -.7px .7px black, .7px .7px black,
 		0px 0px 6px black, 0px 0px 6px black;
 	color: #9DCBE8;
+	opacity: 0;
 }
 .card .frame .custom-kingdom[length='2'] {
 	font-size: 40px;
@@ -115,9 +120,9 @@
 
 .card .hitpoints li{
 	display: inline-block;
-	background: url('images/magatama.png') no-repeat -7px -3px;
-	width: 19px;
-	height: 22px;
+	background: url('images/magatama.png') no-repeat -6px -2px; /*k -7 -3 */
+	width: 22px; /*k 19 22 */
+	height: 26px;
 }
 
 .card .hitpoints .drained{
@@ -164,6 +169,7 @@
 	font-size: 24px;
 	writing-mode: tb-rl;
 	text-align: center;
+	opacity: 0;
 }
 .card .nickname-small{
 	font-size: 20px;
@@ -388,7 +394,7 @@
 	background-image: url('images/qun.png');
 }
 .card.qun .hitpoints li{
-	background-position-x: -103px;
+	background-position-x: -101px;
 }
 .card.qun  .description {
 	background-image: url('images/qun-skill-middle.png');
@@ -455,6 +461,7 @@
 .card.god .nickname, .card.god .nickname-small{
 	left: 336px;
 }
+
 .card.god .name, .card.god .name-small{
 	left: auto;
 	right: 24px;
