@@ -14,7 +14,7 @@
 	background: url('images/wei.png') center / cover;
 }
 
-.card[kingdom]:not([kingdom='']) .frame::before {
+/*k .card[kingdom]:not([kingdom='']) .frame::before {
 	content: '';
 	position: absolute;
 	display: block;
@@ -23,6 +23,66 @@
 	width: 80px;
 	height: 60px;
 	background: url('images/kingdom-patch.png') 0 0;
+} */
+
+.card[kingdom='万'] .frame::before,
+.card[kingdom='无'] .frame::before,
+.card[kingdom='风'] .frame::before,
+.card[kingdom='岩'] .frame::before,
+.card[kingdom='雷'] .frame::before,
+.card[kingdom='草'] .frame::before,
+.card[kingdom='水'] .frame::before,
+.card[kingdom='火'] .frame::before,
+.card[kingdom='冰'] .frame::before,
+.card[kingdom]:not([kingdom='']) .frame::before {
+  content: '';
+  position: absolute;
+  display: block;
+  left: 18px;
+  top: 18px;
+  width: 80px;
+  height: 60px;
+}
+
+.card[kingdom='万'] .frame::before {
+  background: url('images/awan.png') 0 0;
+}
+
+.card[kingdom='无'] .frame::before {
+  background: url('images/awu.png') 0 0;
+}
+
+.card[kingdom='风'] .frame::before {
+  background: url('images/afeng.png') 0 0;
+}
+
+.card[kingdom='岩'] .frame::before {
+  background: url('images/ayan.png') 0 0;
+}
+
+.card[kingdom='雷'] .frame::before {
+  background: url('images/alei.png') 0 0;
+}
+
+.card[kingdom='草'] .frame::before {
+  background: url('images/acao.png') 0 0;
+}
+
+.card[kingdom='水'] .frame::before {
+  background: url('images/ashui.png') 0 0;
+}
+
+.card[kingdom='火'] .frame::before {
+  background: url('images/ahuo.png') 0 0;
+}
+
+.card[kingdom='冰'] .frame::before {
+  background: url('images/abing.png') 0 0;
+}
+
+/* 默认情况下加载images/kingdom-patch.png */
+.card[kingdom]:not([kingdom='']) .frame::before {
+  background: url('images/kingdom-patch.png') 0 0;
 }
 
 .card .frame .custom-kingdom {
@@ -428,7 +488,8 @@
 	background-position: 0 -70px;
 }
 .card.qun[kingdom]:not([kingdom='']) .frame::before {
-	background-position: -80px -70px;
+	/*k background-position: -80px -70px; */
+	background-position: -160px -70px;
 }
 .card.god[kingdom]:not([kingdom='']) .frame::before {
 	background-position: -160px 0;
