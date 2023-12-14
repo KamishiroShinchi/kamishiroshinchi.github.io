@@ -194,6 +194,8 @@
 	font-size: 40px;
 	writing-mode: tb-rl;
 	letter-spacing: 0.1em;
+	/*k */
+	white-space: nowrap;
 }
 .card.on-rendering .name { /* For Rendering */
 	text-shadow: 1.5px 1.5px #000, -1.5px -1.5px #000, 1.5px -1.5px #000, -1.5px 1.5px #000, 
