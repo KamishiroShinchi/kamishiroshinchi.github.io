@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>替换汉字</title>
+    <style>
+        textarea {
+            width: 80%;
+            height: 100px;
+            resize: vertical;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <textarea id="inputStr" placeholder="输入任意字符串"></textarea>
+    <button onclick="replaceCharacters()">替换汉字</button>
+    <div id="output"></div>
+
+    <script>
+        // 异步读取 c.txt
+        fetch('c.txt')
+            .then(response => response.text())
+            .then(data => {
+                window.ctxt = data;
+            });
+
+        function getRandomCharFromLine(line) {
+            const chars = line.trim().split("");
+            return chars[Math.floor(Math.random() * chars.length)];
+        }
+
+        function replaceCharacters() {
+            const inputStr = document.getElementById("inputStr").value;
+            let result = "";
+
+            for (let char of inputStr) {
+                if (/[\u4e00-\u9fa5]/.test(char)) { // 检查是否为汉字
+                    const lines = ctxt.split("\n");
+                    for (let line of lines) {
+                        if (line.includes(char)) {
+                            const randomChar = getRandomCharFromLine(line);
+                            result += randomChar;
+                            break; // 找到匹配的行后，跳出循环
+                        }
+                    }
+                } else {
+                    result += char; // 非汉字直接添加到结果中
+                }
+            }
+
+            document.getElementById("output").textContent = result;
+        }
+    </script>
+
+</body>
+
+</html>
