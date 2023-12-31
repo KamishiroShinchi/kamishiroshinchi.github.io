@@ -39,10 +39,10 @@
             let result = "";
 
             for (let char of inputStr) {
+                let isfind = false;
                 if (/[\u4e00-\u9fa5]/.test(char)) { // 检查是否为汉字
                     const lines = ctxt.split("\n");
                     for (let line of lines) {
-                        let isfind = false;
                         if (line.includes(char)) {
                             const randomChar = getRandomCharFromLine(line);
                             result += randomChar;
