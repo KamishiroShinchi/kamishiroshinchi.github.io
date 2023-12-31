@@ -42,12 +42,16 @@
                 if (/[\u4e00-\u9fa5]/.test(char)) { // 检查是否为汉字
                     const lines = ctxt.split("\n");
                     for (let line of lines) {
+                        let isfind = false;
                         if (line.includes(char)) {
                             const randomChar = getRandomCharFromLine(line);
                             result += randomChar;
+                            isfind = true;
                             break; // 找到匹配的行后，跳出循环
                         }
                     }
+                    if (!isfind)
+                        result += char;
                 } else {
                     result += char; // 非汉字直接添加到结果中
                 }
