@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Processing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        label {
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        textarea {
+            padding: 8px;
+            font-size: 14px;
+            width: 80%; /* 设置宽度为百分比 */
+            min-width: 300px; /* 设置最小宽度 */
+            margin-right: 10px;
+            box-sizing: border-box; /* 让 padding 和 border 不会影响元素的宽度 */
+            resize: vertical; /* 使 textarea 只能在垂直方向上调整大小 */
+        }
+
+        button {
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            white-space: pre-line;
+        }
+    </style>
+</head>
+<body>
+
+<label for="inputStr">输入字符串：</label>
+<textarea id="inputStr" placeholder="在这里输入字符串"></textarea>
+
+<button onclick="processText()">处理文本</button>
+
+<div id="result"></div>
+
+<script>
+    function processText() {
+        // 获取输入的字符串
+        var inputString = document.getElementById("inputStr").value;
+        
+        // 切割字符串并处理
+        var substrings = inputString.split(/[^a-zA-Z\u4e00-\u9fa5]/);
+        var resultString = "";
+
+        for (var i = 0; i < substrings.length; i++) {
+            if (i % 2 === 0) {
+                // 偶数子字符串逆序输出
+                resultString += substrings[i].split("").reverse().join("");
+            } else {
+                // 奇数子字符串顺序输出
+                resultString += substrings[i];
+            }
+
+            // 添加随机的非洲语言字符（这里用的是示例字符）
+            resultString += getRandomAfricanCharacter();
+        }
+
+        // 将结果输出到页面
+        document.getElementById("result").innerHTML = resultString;
+    }
+
+    // 生成随机的非洲语系字符（示例函数）
+function getRandomAfricanCharacter() {
+    // Unicode 范围：闪含语系、尼罗-撒哈拉语系、尼日-刚果语系、科依桑语系中的语言
+    var start = 0x1200; // 范围起始值
+    var end = 0x2C5E;   // 范围结束值
+
+    // 生成随机字符编码
+    var randomCharCode = Math.floor(Math.random() * (end - start + 1)) + start;
+
+    // 转换为字符并返回
+    return String.fromCharCode(randomCharCode);
+}
+
+</script>
+
+</body>
+</html>
