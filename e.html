@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>模糊匹配输入提示功能（部分匹配优先）</title>
+  <title>动态多词提示功能</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -11,7 +11,7 @@
     }
     .autocomplete-container {
       position: relative;
-      width: 300px;
+      width: 400px;
     }
     input {
       width: 100%;
@@ -27,7 +27,7 @@
       border: 1px solid #ccc;
       background: #fff;
       z-index: 1000;
-      max-height: 150px;
+      max-height: 200px;
       overflow-y: auto;
     }
     .suggestion {
@@ -40,7 +40,7 @@
   </style>
 </head>
 <body>
-  <h1>模糊匹配输入提示功能示例（部分匹配优先）</h1>
+  <h1>动态多词提示功能示例</h1>
   <div class="autocomplete-container">
     <input type="text" id="input-box" placeholder="输入内容...">
     <div class="suggestions" id="suggestions-box"></div>
@@ -48,22 +48,17 @@
 
   <script>
     // 知识库数组
-    let knowledgeBase = [];
-
-    // 从TXT文件加载知识库
-    async function loadKnowledgeBase() {
-      try {
-        const response = await fetch('knowledge-base.txt'); // 读取知识库文件
-        const text = await response.text(); // 获取文件内容
-        knowledgeBase = text.split('\n').map(line => line.trim()).filter(line => line); // 按行分割并去掉空行
-        console.log('知识库加载完成:', knowledgeBase);
-      } catch (error) {
-        console.error('无法加载知识库:', error);
-      }
-    }
-
-    // 初始化加载知识库
-    loadKnowledgeBase();
+    const knowledgeBase = [
+      "安全管理",
+      "网络安全",
+      "工控安全",
+      "数据安全",
+      "企业安全",
+      "Web安全",
+      "无线安全",
+      "系统安全",
+      "终端安全"
+    ];
 
     // 获取 DOM 元素
     const inputBox = document.getElementById("input-box");
@@ -75,42 +70,33 @@
       suggestionsBox.innerHTML = ""; // 清空建议框
 
       if (userInput) {
-        // 根据用户输入查找匹配的下一个字符
+        // 根据用户输入查找匹配的候选词组
         const filteredSuggestions = new Set(); // 使用 Set 避免重复
 
-        // 遍历知识库，查找完全匹配和部分匹配
+        // 遍历知识库，查找所有包含用户输入的条目
         knowledgeBase.forEach(item => {
-          // 完全匹配逻辑
-          const index = item.indexOf(userInput); // 查找用户输入在字符串中的位置
+          const index = item.indexOf(userInput); // 查找用户输入在条目中的位置
           if (index !== -1) {
-            // 如果找到完全匹配
-            const nextChar = item[index + userInput.length] || ""; // 获取下一个字符
-            if (nextChar) {
-              filteredSuggestions.add(nextChar);
+            // 获取用户输入后可能的连续字符组合
+            const phrase = item.substring(index + userInput.length); // 提取后续字符
+            if (phrase) {
+              filteredSuggestions.add(userInput + phrase); // 拼接完整的候选词组
             }
-          }
 
-          // 部分匹配逻辑（始终尝试部分匹配）
-          for (let i = 0; i < userInput.length; i++) {
-            const partialIndex = item.indexOf(userInput[i]); // 查找用户输入的每个字符
-            if (partialIndex !== -1) {
-              const nextChar = item[partialIndex + 1] || ""; // 获取下一个字符
-              if (nextChar) {
-                filteredSuggestions.add(nextChar);
-              }
-            }
+            // 同时允许用户直接替换为知识库中的完整条目
+            filteredSuggestions.add(item);
           }
         });
 
-        // 显示建议
+        // 显示候选词组
         filteredSuggestions.forEach(suggestion => {
           const suggestionElement = document.createElement("div");
           suggestionElement.classList.add("suggestion");
           suggestionElement.textContent = suggestion;
 
-          // 点击建议时自动填充输入框
+          // 点击候选词时，更新输入框内容并触发新的提示
           suggestionElement.addEventListener("click", () => {
-            inputBox.value += suggestion;
+            inputBox.value = suggestion; // 更新输入框内容
             suggestionsBox.innerHTML = ""; // 清空建议框
             inputBox.dispatchEvent(new Event("input")); // 触发新的输入事件
           });
