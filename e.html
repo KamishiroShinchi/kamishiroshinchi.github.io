@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>动态多词提示功能（文件读取版）</title>
+  <title>动态多词提示功能（显示完整句子）</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -37,10 +37,16 @@
     .suggestion:hover {
       background-color: #f0f0f0;
     }
+    .full-sentence {
+      padding: 8px;
+      color: #999;
+      cursor: default;
+      background-color: #f9f9f9;
+    }
   </style>
 </head>
 <body>
-  <h1>动态多词提示功能（文件读取版）</h1>
+  <h1>动态多词提示功能（显示完整句子）</h1>
   <div class="autocomplete-container">
     <input type="text" id="input-box" placeholder="输入内容...">
     <div class="suggestions" id="suggestions-box"></div>
@@ -79,6 +85,7 @@
       if (userInput) {
         // 根据用户输入查找匹配的候选词组
         const filteredSuggestions = new Set(); // 使用 Set 避免重复
+        const fullSentences = new Set(); // 存储完整句子
 
         // 提取用户输入的最后一个词
         const lastWord = userInput.split("").pop(); // 获取最后一个字符（如“全”）
@@ -98,6 +105,9 @@
             if (nextChar) {
               filteredSuggestions.add(userInput + nextChar); // 拼接后一个字
             }
+
+            // 添加完整句子
+            fullSentences.add(item);
           }
         });
 
@@ -115,6 +125,14 @@
           });
 
           suggestionsBox.appendChild(suggestionElement);
+        });
+
+        // 显示完整句子（仅供参考，不可点击）
+        fullSentences.forEach(sentence => {
+          const sentenceElement = document.createElement("div");
+          sentenceElement.classList.add("full-sentence");
+          sentenceElement.textContent = `参考完整句子：${sentence}`;
+          suggestionsBox.appendChild(sentenceElement);
         });
       }
     });
