@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>动态多词提示功能</title>
+  <title>动态多词提示功能（文件读取版）</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -40,25 +40,32 @@
   </style>
 </head>
 <body>
-  <h1>动态多词提示功能示例</h1>
+  <h1>动态多词提示功能（文件读取版）</h1>
   <div class="autocomplete-container">
     <input type="text" id="input-box" placeholder="输入内容...">
     <div class="suggestions" id="suggestions-box"></div>
   </div>
 
   <script>
-    // 知识库数组
-    const knowledgeBase = [
-      "安全管理",
-      "网络安全",
-      "工控安全",
-      "数据安全",
-      "企业安全",
-      "Web安全",
-      "无线安全",
-      "系统安全",
-      "终端安全"
-    ];
+    // 定义知识库数组
+    let knowledgeBase = [];
+
+    // 从文件中读取知识库内容
+    async function loadKnowledgeBase() {
+      try {
+        const response = await fetch('knowledge-base.txt'); // 假设文件在同一目录下
+        const text = await response.text();
+        knowledgeBase = text
+          .split('\n') // 按行分割
+          .map(line => line.trim()) // 去掉首尾空格
+          .filter(line => line !== ""); // 忽略空行
+      } catch (error) {
+        console.error("无法加载知识库文件：", error);
+      }
+    }
+
+    // 调用加载函数
+    loadKnowledgeBase();
 
     // 获取 DOM 元素
     const inputBox = document.getElementById("input-box");
@@ -73,18 +80,24 @@
         // 根据用户输入查找匹配的候选词组
         const filteredSuggestions = new Set(); // 使用 Set 避免重复
 
-        // 遍历知识库，查找所有包含用户输入的条目
-        knowledgeBase.forEach(item => {
-          const index = item.indexOf(userInput); // 查找用户输入在条目中的位置
-          if (index !== -1) {
-            // 获取用户输入后可能的连续字符组合
-            const phrase = item.substring(index + userInput.length); // 提取后续字符
-            if (phrase) {
-              filteredSuggestions.add(userInput + phrase); // 拼接完整的候选词组
-            }
+        // 提取用户输入的最后一个词
+        const lastWord = userInput.split("").pop(); // 获取最后一个字符（如“全”）
 
-            // 同时允许用户直接替换为知识库中的完整条目
-            filteredSuggestions.add(item);
+        // 遍历知识库，查找所有包含最后一个词的条目
+        knowledgeBase.forEach(item => {
+          const index = item.indexOf(lastWord); // 查找最后一个词在条目中的位置
+          if (index !== -1) {
+            // 限制提示范围为前后一个字
+            const prevChar = index > 0 ? item[index - 1] : ""; // 前一个字
+            const nextChar = index + lastWord.length < item.length ? item[index + lastWord.length] : ""; // 后一个字
+
+            // 生成候选词
+            if (prevChar) {
+              filteredSuggestions.add(userInput.slice(0, -1) + prevChar + lastWord); // 拼接前一个字
+            }
+            if (nextChar) {
+              filteredSuggestions.add(userInput + nextChar); // 拼接后一个字
+            }
           }
         });
 
