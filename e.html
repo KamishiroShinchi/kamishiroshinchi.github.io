@@ -77,39 +77,56 @@
     const inputBox = document.getElementById("input-box");
     const suggestionsBox = document.getElementById("suggestions-box");
 
-    // 监听输入框的输入事件
-    inputBox.addEventListener("input", () => {
-      const userInput = inputBox.value.trim(); // 获取用户输入并去掉首尾空格
-      suggestionsBox.innerHTML = ""; // 清空建议框
+    // 修改输入事件监听器中的匹配逻辑部分
+inputBox.addEventListener("input", () => {
+  const userInput = inputBox.value.trim();
+  suggestionsBox.innerHTML = "";
 
-      if (userInput) {
-        // 根据用户输入查找匹配的候选词组
-        const filteredSuggestions = new Set(); // 使用 Set 避免重复
-        const fullSentences = new Set(); // 存储完整句子
+  if (userInput) {
+    const filteredSuggestions = new Set();
+    const fullSentences = new Set();
 
-        // 提取用户输入的最后一个词
-        const lastWord = userInput.split("").pop(); // 获取最后一个字符（如“全”）
+    // 新增：获取最后两个字符（当输入长度>=2时）
+    const lastTwoChars = userInput.length >= 2 ? userInput.slice(-2) : "";
+    const lastChar = userInput.slice(-1);
 
-        // 遍历知识库，查找所有包含最后一个词的条目
-        knowledgeBase.forEach(item => {
-          const index = item.indexOf(lastWord); // 查找最后一个词在条目中的位置
-          if (index !== -1) {
-            // 限制提示范围为前后一个字
-            const prevChar = index > 0 ? item[index - 1] : ""; // 前一个字
-            const nextChar = index + lastWord.length < item.length ? item[index + lastWord.length] : ""; // 后一个字
-
-            // 生成候选词
-            if (prevChar) {
-              filteredSuggestions.add(userInput.slice(0, -1) + prevChar + lastWord); // 拼接前一个字
-            }
-            if (nextChar) {
-              filteredSuggestions.add(userInput + nextChar); // 拼接后一个字
-            }
-
-            // 添加完整句子
-            fullSentences.add(item);
+    // 新增：优先匹配最后两个字符的逻辑
+    if (lastTwoChars) {
+      knowledgeBase.forEach(item => {
+        const index = item.indexOf(lastTwoChars);
+        if (index !== -1) {
+          // 处理前一个字符
+          if (index > 0) {
+            const newSuggestion = userInput.slice(0, -2) + item[index - 1] + lastTwoChars;
+            filteredSuggestions.add(newSuggestion);
           }
-        });
+          // 处理后一个字符
+          if (index + lastTwoChars.length < item.length) {
+            const newSuggestion = userInput + item[index + lastTwoChars.length];
+            filteredSuggestions.add(newSuggestion);
+          }
+          fullSentences.add(item);
+        }
+      });
+    }
+
+    // 原有逻辑修改为：无论是否找到两个字符的匹配，都执行单字匹配
+    knowledgeBase.forEach(item => {
+      const index = item.indexOf(lastChar);
+      if (index !== -1) {
+        // 处理前一个字符
+        if (index > 0) {
+          const newSuggestion = userInput.slice(0, -1) + item[index - 1] + lastChar;
+          filteredSuggestions.add(newSuggestion);
+        }
+        // 处理后一个字符
+        if (index + 1 < item.length) {
+          const newSuggestion = userInput + item[index + 1];
+          filteredSuggestions.add(newSuggestion);
+        }
+        fullSentences.add(item);
+      }
+    });
 
         // 显示候选词组
         filteredSuggestions.forEach(suggestion => {
