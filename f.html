@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>模糊匹配提示功能</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .autocomplete-container {
+      position: relative;
+      width: 400px;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    .suggestions {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      border: 1px solid #ccc;
+      background: #fff;
+      z-index: 1000;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .suggestion, .full-sentence {
+      padding: 8px;
+      cursor: pointer;
+    }
+    .suggestion:hover {
+      background-color: #f0f0f0;
+    }
+    .full-sentence {
+      color: #999;
+      cursor: default;
+      background-color: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+  <h1>模糊匹配提示功能</h1>
+  <div class="autocomplete-container">
+    <input type="text" id="input-box" placeholder="输入内容...">
+    <div class="suggestions" id="suggestions-box"></div>
+  </div>
+
+  <script>
+    // 定义知识库数组
+    let knowledgeBase = [];
+
+    // 从文件中读取知识库内容
+    async function loadKnowledgeBase() {
+      try {
+        const response = await fetch('knowledge-base.txt'); // 假设文件在同一目录下
+        const text = await response.text();
+        knowledgeBase = text
+          .split('\n') // 按行分割
+          .map(line => line.trim()) // 去掉首尾空格
+          .filter(line => line !== ""); // 忽略空行
+      } catch (error) {
+        console.error("无法加载知识库文件：", error);
+      }
+    }
+
+    // 调用加载函数
+    loadKnowledgeBase();
+
+    // 获取 DOM 元素
+    const inputBox = document.getElementById("input-box");
+    const suggestionsBox = document.getElementById("suggestions-box");
+
+    // 计算相似度（简单实现：根据包含位置计算权重）
+    function calculateSimilarity(input, line) {
+      const lastTwoChars = input.slice(-2);
+      const lastChar = input.slice(-1);
+      let score = 0;
+
+      if (line.includes(lastTwoChars)) {
+        score += 2; // 匹配两个字符加权
+      }
+      if (line.includes(lastChar)) {
+        score += 1; // 匹配一个字符加权
+      }
+      return score;
+    }
+
+    // 输入事件监听器
+    inputBox.addEventListener("input", () => {
+      const userInput = inputBox.value.trim();
+      suggestionsBox.innerHTML = "";
+
+      if (userInput) {
+        // 根据用户输入计算相似度并排序
+        const results = knowledgeBase
+          .map(line => ({ line, score: calculateSimilarity(userInput, line) }))
+          .filter(item => item.score > 0) // 只保留有匹配的行
+          .sort((a, b) => b.score - a.score) // 按相似度降序排序
+          .slice(0, 50); // 最多显示50条
+
+        // 显示候选项
+        results.forEach(({ line }) => {
+          const suggestionElement = document.createElement("div");
+          suggestionElement.classList.add("suggestion");
+          suggestionElement.textContent = line;
+
+          // 点击候选项时，更新输入框内容并触发新的提示
+          suggestionElement.addEventListener("click", () => {
+            inputBox.value = line; // 更新输入框内容
+            suggestionsBox.innerHTML = ""; // 清空建议框
+            inputBox.dispatchEvent(new Event("input")); // 触发新的输入事件
+          });
+
+          suggestionsBox.appendChild(suggestionElement);
+        });
+      }
+    });
+  </script>
+</body>
+</html>
