@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片叠加编辑器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #f0f0f0;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+        }
+        .canvas-container {
+            position: relative;
+            margin: 20px 0;
+            border: 1px solid #ccc;
+            background: #fff;
+        }
+        canvas {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        input[type="file"] {
+            margin: 10px 0;
+        }
+        button {
+            padding: 8px 16px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        @media (max-width: 600px) {
+            .controls {
+                flex-direction: column;
+            }
+            .control-group {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input type="file" id="backgroundInput" accept="image/*" onchange="loadBackground(event)">
+        <div class="canvas-container">
+            <canvas id="canvas"></canvas>
+        </div>
+        <input type="file" id="overlayInput" accept="image/*" onchange="loadOverlay(event)">
+        <div class="controls">
+            <div class="control-group">
+                <label>X坐标(0-100):</label>
+                <input type="number" id="xPos" value="0" min="0" max="100">
+            </div>
+            <div class="control-group">
+                <label>Y坐标(0-100):</label>
+                <input type="number" id="yPos" value="0" min="0" max="100">
+            </div>
+            <div class="control-group">
+                <label>缩放比例(0.1-2):</label>
+                <input type="number" id="scale" value="1" step="0.1" min="0.1" max="2">
+            </div>
+            <button onclick="addOverlay()">添加图片</button>
+            <button onclick="downloadImage()">下载结果</button>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let backgroundImg = null;
+        let overlayImg = null;
+        const overlays = [];
+
+        function loadBackground(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                backgroundImg = new Image();
+                backgroundImg.onload = function() {
+                    canvas.width = backgroundImg.width;
+                    canvas.height = backgroundImg.height;
+                    redrawCanvas();
+                };
+                backgroundImg.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function loadOverlay(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                overlayImg = new Image();
+                overlayImg.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function addOverlay() {
+            if (!backgroundImg || !overlayImg) {
+                alert('请先上传背景图和叠加图');
+                return;
+            }
+            let xPercent = parseInt(document.getElementById('xPos').value) || 0;
+            let yPercent = parseInt(document.getElementById('yPos').value) || 0;
+            const scale = parseFloat(document.getElementById('scale').value) || 1;
+
+            // 限制百分比在0-100之间
+            xPercent = Math.max(0, Math.min(100, xPercent));
+            yPercent = Math.max(0, Math.min(100, yPercent));
+
+            // 计算叠加图的缩放后尺寸
+            const overlayWidth = overlayImg.width * scale;
+            const overlayHeight = overlayImg.height * scale;
+
+            // X 和 Y 表示中心点相对于背景图左上角的百分比位置
+            const centerX = (xPercent / 100) * canvas.width;
+            const centerY = (yPercent / 100) * canvas.height;
+
+            // 从中心点计算左上角坐标
+            const x = centerX - (overlayWidth / 2);
+            const y = centerY - (overlayHeight / 2);
+
+            // 保存叠加图信息
+            overlays.push({ img: overlayImg, x, y, width: overlayWidth, height: overlayHeight });
+            redrawCanvas();
+        }
+
+        function redrawCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (backgroundImg) {
+                ctx.drawImage(backgroundImg, 0, 0, canvas.width, canvas.height);
+            }
+            overlays.forEach(overlay => {
+                ctx.drawImage(overlay.img, overlay.x, overlay.y, overlay.width, overlay.height);
+            });
+        }
+
+        function downloadImage() {
+            const link = document.createElement('a');
+            link.download = 'edited-image.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+    </script>
+</body>
+</html>
