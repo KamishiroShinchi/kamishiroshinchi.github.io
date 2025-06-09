@@ -296,13 +296,13 @@
 .card .description-tiny p{
 	font-size: 35px; /*k 18*/
 	text-indent: 0px;
-	padding-left: 24px;
+	padding-left: 18px;
 }
 .card .description-small p{
-	font-size: 35px; /*k 20*/
+	font-size: 27px; /*k 20*/
 }
 .card .description-large p{
-	font-size: 40px; /*k 28 */
+	font-size: 30px; /*k 28 */
 }
 
 .card .description .pointer{
